@@ -2,6 +2,7 @@ package com.example.githubclient;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,20 +36,26 @@ public class ExampleUnitTest {
 
         Call<List<GithubRepo>> call = githubClient.reposForUser("chenyongda2018");
 
-        call.enqueue(new Callback<List<GithubRepo>>() {
-            @Override
-            public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
-                List<GithubRepo> repoList = response.body();
-                for(GithubRepo repo : repoList) {
-                    System.out.println(repo.getName());
-                }
+        try {
+            List<GithubRepo> repoList = call.execute().body();
+            for(GithubRepo repo : repoList) {
+                System.out.println(repo.getName());
             }
-
-            @Override
-            public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //call.execute(new Callback<List<GithubRepo>>() {
+        //    @Override
+        //    public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
+        //        List<GithubRepo> repoList = response.body();
+        //        System.out.println(repoList.size());
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
+        //        t.printStackTrace();
+        //    }
+        //});
 
     }
 }
