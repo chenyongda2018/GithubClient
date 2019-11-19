@@ -1,4 +1,6 @@
-package com.example.githubclient;
+package com.example.githubclient.api.service;
+
+import com.example.githubclient.api.model.GithubRepo;
 
 import java.util.List;
 

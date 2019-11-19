@@ -1,11 +1,11 @@
-package com.example.githubclient;
+package com.example.githubclient.api.model;
 
 /**
  * Github 用户类
  */
 public class User {
 
-    private Integer id;
+    private Integer _id;
     private String name;
     private String email;
     private int age;
@@ -20,6 +20,6 @@ public class User {
     }
 
     public Integer getId() {
-        return id;
+        return _id;
     }
 }

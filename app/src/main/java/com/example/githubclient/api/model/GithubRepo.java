@@ -1,4 +1,4 @@
-package com.example.githubclient;
+package com.example.githubclient.api.model;
 
 /**
  * Github仓库

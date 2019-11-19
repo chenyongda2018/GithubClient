@@ -1,6 +1,9 @@
 package com.example.githubclient;
 
-import com.google.gson.Gson;
+import com.example.githubclient.api.service.GithubClient;
+import com.example.githubclient.api.model.GithubRepo;
+import com.example.githubclient.api.model.User;
+import com.example.githubclient.api.service.UserClient;
 
 import org.junit.Test;
 
@@ -8,8 +11,6 @@ import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
