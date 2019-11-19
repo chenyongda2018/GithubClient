@@ -1,5 +1,7 @@
 package com.example.githubclient;
 
+import com.google.gson.Gson;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -57,5 +59,42 @@ public class ExampleUnitTest {
         //    }
         //});
 
+    }
+
+
+    @Test
+    public void test_create_account () {
+        User user = new User("chenyongda2019",
+                "1243724041@qq.com",
+                21,
+                new String[]{"Android","Java"});
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl("https://api.github.com/")
+                .addConverterFactory(GsonConverterFactory.create());
+        Retrofit retrofit = builder.build();
+
+        UserClient userClient = retrofit.create(UserClient.class);
+
+        Call<User> userCall = userClient.createAccount(user);
+
+        try {
+            Integer id = userCall.execute().body().getId();
+            System.out.println("创建成功 , 用户id为" + id);
+        } catch (IOException e) {
+            System.out.println("创建失败");
+            e.printStackTrace();
+        }
+        //userCall.enqueue(new Callback<User>() {
+        //    @Override
+        //    public void onResponse(Call<User> call, Response<User> response) {
+        //        Integer id =response.body().getId();
+        //        System.out.println("创建成功 , 用户id为" + id);
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(Call<User> call, Throwable t) {
+        //        System.out.println("创建失败");
+        //    }
+        //});
     }
 }
