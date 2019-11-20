@@ -1,7 +1,7 @@
 package com.example.githubclient;
 
+import com.example.githubclient.api.model.Repo;
 import com.example.githubclient.api.service.GithubClient;
-import com.example.githubclient.api.model.GithubRepo;
 import com.example.githubclient.api.model.User;
 import com.example.githubclient.base.ServiceGenerator;
 
@@ -30,36 +30,21 @@ public class ExampleUnitTest {
 
     @Test
     public void github_test() {
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create());
 
-        Retrofit retrofit = builder.build();
-        GithubClient githubClient = retrofit.create(GithubClient.class);
+        GithubClient githubClient = ServiceGenerator.createService(GithubClient.class);
 
-        Call<List<GithubRepo>> call = githubClient.reposForUser("chenyongda2018");
+        Call<List<Repo>> call = githubClient.reposForUser("chenyongda2018");
 
         try {
-            List<GithubRepo> repoList = call.execute().body();
-            for(GithubRepo repo : repoList) {
-                System.out.println(repo.getName());
+            List<Repo> repoList = call.execute().body();
+            for(Repo repo : repoList) {
+                if(repo.getUser() == null) {
+                    System.out.println("null");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //call.execute(new Callback<List<GithubRepo>>() {
-        //    @Override
-        //    public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
-        //        List<GithubRepo> repoList = response.body();
-        //        System.out.println(repoList.size());
-        //    }
-        //
-        //    @Override
-        //    public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
-        //        t.printStackTrace();
-        //    }
-        //});
-
     }
 
 

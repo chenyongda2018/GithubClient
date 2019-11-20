@@ -8,6 +8,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.githubclient.R;
@@ -15,6 +16,10 @@ import com.example.githubclient.api.model.User;
 import com.example.githubclient.api.service.GithubClient;
 import com.example.githubclient.base.ServiceGenerator;
 import com.example.githubclient.ui.adapter.UserListAdapter;
+import com.example.githubclient.ui.event.UserEvent;
+import com.example.githubclient.ui.listener.OnItemClickListener;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +29,10 @@ import java.util.List;
  * @author cyd
  * @date 2019/11/20 10:29
  */
-public class UserListActivity extends AppCompatActivity {
+public class UserListActivity extends AppCompatActivity{
 
     RecyclerView mUserListRecyclerView ;
+    UserListAdapter mUserListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class UserListActivity extends AppCompatActivity {
         mUserListRecyclerView.setHasFixedSize(true);
 
         displayUserList();
+
+
     }
 
 
@@ -52,9 +60,9 @@ public class UserListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()) {
-                    UserListAdapter adapter =
+                   mUserListAdapter =
                             new UserListAdapter(UserListActivity.this, response.body());
-                    mUserListRecyclerView.setAdapter(adapter);
+                    mUserListRecyclerView.setAdapter(mUserListAdapter);
                 }
             }
 
@@ -64,6 +72,7 @@ public class UserListActivity extends AppCompatActivity {
             }
         });
     }
+
 
 
 }

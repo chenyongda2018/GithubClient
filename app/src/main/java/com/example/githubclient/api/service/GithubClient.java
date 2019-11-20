@@ -1,6 +1,6 @@
 package com.example.githubclient.api.service;
 
-import com.example.githubclient.api.model.GithubRepo;
+import com.example.githubclient.api.model.Repo;
 import com.example.githubclient.api.model.User;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface GithubClient {
      * @return
      */
     @GET("/users/{user}/repos")
-    Call<List<GithubRepo>> reposForUser(@Path("user") String user);
+    Call<List<Repo>> reposForUser(@Path("user") String user);
 
     /**
      * 获取github的所有用户

@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.GithubReposListActivity">
+    tools:context=".ui.ReposListActivity">
 
-    <ListView
-        android:id="@+id/repos_list_view"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/repo_list_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Hello World!"
-        android:layout_marginHorizontal="16dp"
          />
 
 </RelativeLayout>
