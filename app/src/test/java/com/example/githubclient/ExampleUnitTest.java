@@ -3,7 +3,7 @@ package com.example.githubclient;
 import com.example.githubclient.api.service.GithubClient;
 import com.example.githubclient.api.model.GithubRepo;
 import com.example.githubclient.api.model.User;
-import com.example.githubclient.api.service.UserClient;
+import com.example.githubclient.base.ServiceGenerator;
 
 import org.junit.Test;
 
@@ -64,38 +64,18 @@ public class ExampleUnitTest {
 
 
     @Test
-    public void test_create_account () {
-        User user = new User("chenyongda2019",
-                "1243724041@qq.com",
-                21,
-                new String[]{"Android","Java"});
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.github.com/")
-                .addConverterFactory(GsonConverterFactory.create());
-        Retrofit retrofit = builder.build();
+    public void testGetAllUser () {
+        GithubClient client = ServiceGenerator.createService(GithubClient.class);
 
-        UserClient userClient = retrofit.create(UserClient.class);
-
-        Call<User> userCall = userClient.createAccount(user);
+        Call<List<User>> call = client.getAllUsers();
 
         try {
-            Integer id = userCall.execute().body().getId();
-            System.out.println("创建成功 , 用户id为" + id);
+            List<User> users = call.execute().body();
+            for(User user : users) {
+                System.out.println(user.getUsername() + " - " + user.getType() );
+            }
         } catch (IOException e) {
-            System.out.println("创建失败");
             e.printStackTrace();
         }
-        //userCall.enqueue(new Callback<User>() {
-        //    @Override
-        //    public void onResponse(Call<User> call, Response<User> response) {
-        //        Integer id =response.body().getId();
-        //        System.out.println("创建成功 , 用户id为" + id);
-        //    }
-        //
-        //    @Override
-        //    public void onFailure(Call<User> call, Throwable t) {
-        //        System.out.println("创建失败");
-        //    }
-        //});
     }
 }

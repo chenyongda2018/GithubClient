@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:paddingHorizontal="16dp">
+
+    <ImageView
+        android:id="@+id/avatar_user_list_item_iv"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:layout_gravity="left |center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/username_user_list_item_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chenyongda"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"/>
+</LinearLayout>
