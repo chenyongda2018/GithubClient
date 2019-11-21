@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.githubclient.api.model.Repo;
 import com.example.githubclient.api.model.User;
-import com.example.githubclient.api.service.GithubClient;
+import com.example.githubclient.api.service.GithubRequest;
 import com.example.githubclient.R;
 import com.example.githubclient.base.ServiceGenerator;
 import com.example.githubclient.ui.adapter.RepoListAdapter;
@@ -34,7 +34,7 @@ public class ReposListActivity extends AppCompatActivity {
 
     public static final String TAG = ReposListActivity.class.getSimpleName();
 
-    GithubClient mGithubClient;
+    GithubRequest mGithubRequest;
     RecyclerView mRecyclerView;
     RepoListAdapter mRepoListAdapter;
     User mUser;
@@ -47,7 +47,7 @@ public class ReposListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
 
-        mGithubClient = ServiceGenerator.createService(GithubClient.class);
+        mGithubRequest = ServiceGenerator.createService(GithubRequest.class);
 
     }
 
@@ -58,27 +58,27 @@ public class ReposListActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
     }
 
-    @Subscribe(sticky = true , threadMode = ThreadMode.MAIN)
-    public void onUserEvent(UserEvent event) {
-        Log.d(TAG, "username" + event.getUser().getUsername());
-        mUser = event.getUser();
-        Call<List<Repo>> call = mGithubClient.reposForUser(event.getUser().getUsername());
-        //异步加载
-        call.enqueue(new Callback<List<Repo>>() {
-            @Override
-            public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                mRepoListAdapter = new RepoListAdapter(ReposListActivity.this,  response.body());
-                mRepoListAdapter.setUser(mUser);
-                mRecyclerView.setAdapter(mRepoListAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<List<Repo>> call, Throwable t) {
-                Toast.makeText(ReposListActivity.this, "Request failure ~", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
+    //@Subscribe(sticky = true , threadMode = ThreadMode.MAIN)
+    //public void onUserEvent(UserEvent event) {
+    //    Log.d(TAG, "username" + event.getUser().getUsername());
+    //    mUser = event.getUser();
+    //    Call<List<Repo>> call = mGithubRequest.getReposByUser(event.getUser().getUsername());
+    //    //异步加载
+    //    call.enqueue(new Callback<List<Repo>>() {
+    //        @Override
+    //        public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
+    //            mRepoListAdapter = new RepoListAdapter(ReposListActivity.this,  response.body());
+    //            mRepoListAdapter.setUser(mUser);
+    //            mRecyclerView.setAdapter(mRepoListAdapter);
+    //        }
+    //
+    //        @Override
+    //        public void onFailure(Call<List<Repo>> call, Throwable t) {
+    //            Toast.makeText(ReposListActivity.this, "Request failure ~", Toast.LENGTH_SHORT).show();
+    //        }
+    //    });
+    //}
+    //
 
     @Override
     protected void onStop() {

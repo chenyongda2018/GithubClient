@@ -8,20 +8,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.githubclient.R;
 import com.example.githubclient.api.model.User;
-import com.example.githubclient.api.service.GithubClient;
+import com.example.githubclient.api.service.GithubRequest;
 import com.example.githubclient.base.ServiceGenerator;
 import com.example.githubclient.ui.adapter.UserListAdapter;
-import com.example.githubclient.ui.event.UserEvent;
-import com.example.githubclient.ui.listener.OnItemClickListener;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,34 +38,34 @@ public class UserListActivity extends AppCompatActivity{
         mUserListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mUserListRecyclerView.setHasFixedSize(true);
 
-        displayUserList();
+        //displayUserList();
 
 
     }
 
 
-    private void displayUserList() {
-
-        GithubClient client = ServiceGenerator.createService(GithubClient.class);
-
-        Call<List<User>> call = client.getAllUsers();
-
-        call.enqueue(new Callback<List<User>>() {
-            @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                if(response.isSuccessful()) {
-                   mUserListAdapter =
-                            new UserListAdapter(UserListActivity.this, response.body());
-                    mUserListRecyclerView.setAdapter(mUserListAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
-                Toast.makeText(UserListActivity.this, "Request failed :(", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+    //private void displayUserList() {
+    //
+    //    GithubRequest client = ServiceGenerator.createService(GithubRequest.class);
+    //
+    //    Call<List<User>> call = client.getAllUsers();
+    //
+    //    call.enqueue(new Callback<List<User>>() {
+    //        @Override
+    //        public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+    //            if(response.isSuccessful()) {
+    //               mUserListAdapter =
+    //                        new UserListAdapter(UserListActivity.this, response.body());
+    //                mUserListRecyclerView.setAdapter(mUserListAdapter);
+    //            }
+    //        }
+    //
+    //        @Override
+    //        public void onFailure(Call<List<User>> call, Throwable t) {
+    //            Toast.makeText(UserListActivity.this, "Request failed :(", Toast.LENGTH_SHORT).show();
+    //        }
+    //    });
+    //}
 
 
 
